@@ -1,0 +1,27 @@
+.register {
+  display: flex;
+  flex-direction: column;
+  padding: 70px 0;
+}
+
+.register__logo-container {
+  max-width: 396px;
+  width: 396px;
+  margin: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .register {
+    padding: 232px 0;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .register {
+    padding: 56px 30px 30px;
+  }
+
+  .register__logo-container {
+    width: 38px;
+  }
+}

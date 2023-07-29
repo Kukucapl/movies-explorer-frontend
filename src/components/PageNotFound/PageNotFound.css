@@ -1,0 +1,58 @@
+.not-found {
+  height: 100vh;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.not-found__error-container {
+  padding-top: 250px;
+}
+
+.not-found__error {
+  font-size: 140px;
+  font-weight: 400;
+  margin: auto;
+}
+
+.not-found__error-text {
+  font-size: 16px;
+  margin: 11px 0 0;
+}
+
+.not-found__button {
+  color: #FF6838;
+  font-size: 14px;
+  padding: 184px 0 60px;
+}
+
+
+@media screen and (max-width: 320px) {
+  .not-found {
+
+  }
+
+  .not-found__error-container {
+    padding-top: 0;
+  }
+
+  .not-found__error {
+    font-size: 80px;
+  }
+
+  .not-found__error-text {
+    font-size: 12px;
+    margin: 11px 0 0;
+  }
+
+  .not-found__button {
+    width: 100%;
+    font-size: 12px;
+    position: fixed;
+    bottom: 30px;
+    right: auto;
+    padding: 0;
+  }
+}
+

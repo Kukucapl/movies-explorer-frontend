@@ -1,0 +1,126 @@
+.navigation {
+  display: flex;
+}
+
+.navigation_place-header {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.navigation_place-popup {
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 111px 0 92px;
+}
+
+
+
+
+.navigation__navlinks {
+  display: flex;
+}
+
+.navigation__navlinks_place-header {
+  align-items: center;
+}
+
+.navigation__navlinks_place-popup {
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+.navigation__navlinks_place-header > .navigation__link-to-main {
+  display: none;
+}
+
+
+
+.navigation__link {
+  color: #000000;
+  font-size: 18px;
+}
+
+.navigation__link_place-header {
+  font-size: 13px;
+  margin-right: 18px;
+}
+
+.navigation__link_main {
+  color: #FFFFFF;
+}
+
+.navigation__link_place-header:last-child {
+  margin-right: 0;
+}
+
+.navigation__link_place-popup {
+  font-size: 18px;
+  line-height: normal;
+  font-weight: 500;
+  margin-bottom: 23px;
+  padding-bottom: 4px;
+}
+
+.navigation__link_active-header {
+  font-weight: 500;
+}
+
+.navigation__link_active-popup {
+  border-bottom: 2px solid #000000;
+}
+
+
+  
+.navigation__account-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+
+
+  
+.navigation__account-button {
+  color: #000000;
+  line-height: 16px;
+  font-size: 14px;
+  margin-right: 13px;
+  font-weight: 500;
+}
+
+.navigation__account-button_main {
+  color: #FFFFFF;
+}
+  
+.navigation__account-icon {
+  min-width: 30px;
+  height: 30px;
+  background-image: url(../../images/acc_icon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #F9F9F9;
+  border-radius: 6px;
+  transition: opacity 0.3s;
+}
+  
+.navigation__account-icon:hover {
+  opacity: 80%;
+}
+  
+.navigation__account-icon_main {
+  background-color: #2BE080;
+}
+
+@media screen and (max-width: 520px) {
+  .navigation_place-popup {
+    margin: 105px 0 48px;
+  }
+
+  .navigation__link_place-popup {
+    margin-bottom: 17px;
+    padding-bottom: 7px;
+  }
+}

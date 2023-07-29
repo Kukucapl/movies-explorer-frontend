@@ -1,0 +1,40 @@
+.link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.link:hover {
+  opacity: 70%;
+}
+
+.button {
+  background-color: unset;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.button:hover {
+  opacity: 80%;
+}
+
+
+.input {
+  border: none;
+}
+
+.form-title {
+  font-size: 24px;
+  font-weight: 500;
+  text-align: start;
+}
+
+.form-input-label {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  font-size: 10px;
+  color: #A0A0A0;
+  border-bottom: 1px solid #E8E8E8;
+}
