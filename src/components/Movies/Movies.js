@@ -18,6 +18,7 @@ export default function Movies() {
   const location = useLocation();
 
   useEffect (() => {
+    getSavedMovies();
     if(localStorage.getItem('moviesParams')) {
       const moviesParams = JSON.parse(localStorage.getItem('moviesParams'));
       setMovies(moviesParams.movies);
@@ -83,10 +84,6 @@ export default function Movies() {
       console.log(err)
     });
   }
-
-  useEffect (() => {
-    getSavedMovies()
-  }, []);
 
 
   function handleCheckbox() {

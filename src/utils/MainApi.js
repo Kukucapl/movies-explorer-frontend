@@ -3,7 +3,6 @@ import { MAIN_URL } from "./constants";
 class MainApi {
   constructor(url) {
     this._url = url;
-    this._headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}`}
   }
 
   _getResponseData(res) {
@@ -16,7 +15,10 @@ class MainApi {
   async getCurrentUser() {
     const res = await fetch(`${this._url}/users/me`, {
           method: 'GET',
-          headers: this._headers
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
       });
       return this._getResponseData(res);
   }

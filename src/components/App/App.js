@@ -38,6 +38,7 @@ export default function App() {
   }
 
   React.useEffect (() => {
+    checkToken();
     if (loggedIn) {
       mainApi.getCurrentUser()
       .then((res) => {
@@ -47,7 +48,6 @@ export default function App() {
         console.log(err)
       });
     }
-    checkToken();
   }, [loggedIn]);
 
 
