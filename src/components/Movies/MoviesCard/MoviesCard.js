@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 export default function MoviesCard(props) {
   const location = useLocation();
-  const saveBtnClassName = (`movies-card__save button ${props.savedMovies.find(i => i.movieId  === props.movie.movieId) ? 'movies-card__save_active' : ''}`)
+  const saveBtnClassName = (`movies-card__save button ${props.allSavedMovies.find(i => i.movieId  === props.movie.movieId) ? 'movies-card__save_active' : ''}`)
 
 
   function deleteCard() {

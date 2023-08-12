@@ -9,6 +9,7 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 export default function Movies() {
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [allSavedMovies, setAllSavedMovies] = useState([]);
   const [isShortSavedMovies, setIsShorSavedtMovies] = useState(false);
   const [isShortMovies, setIsShortMovies] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +19,14 @@ export default function Movies() {
   const location = useLocation();
 
   useEffect (() => {
-    getSavedMovies();
+    mainApi.getMovies()
+    .then((res) => {
+      setAllSavedMovies(res)
+      setSavedMovies(res);
+    })
+    .catch((err) => {
+      console.log(err)
+    });
     if(localStorage.getItem('moviesParams')) {
       const moviesParams = JSON.parse(localStorage.getItem('moviesParams'));
       setMovies(moviesParams.movies);
@@ -75,17 +83,6 @@ export default function Movies() {
     });
   }
 
-  function getSavedMovies() {
-    mainApi.getMovies()
-    .then((res) => {
-      setSavedMovies(res);
-    })
-    .catch((err) => {
-      console.log(err)
-    });
-  }
-
-
   function handleCheckbox() {
     if (location.pathname === '/movies') {
       setIsShortMovies(!isShortMovies)
@@ -98,7 +95,8 @@ export default function Movies() {
   function handleDeleteCard(id) {
     mainApi.deleteMovie(id)
     .then((res) => {
-      getSavedMovies()
+      setAllSavedMovies(allSavedMovies.filter(i => i.movieId !== res.data.movieId));
+      setSavedMovies(savedMovies.filter(i => i.movieId !== res.data.movieId))
     })
     .catch((err) => {
       console.log(err)
@@ -106,23 +104,18 @@ export default function Movies() {
   }
 
   function handleSaveCard(movie) {
-    if(!savedMovies.find(i => i.movieId  === movie.movieId)) {
+    if(!allSavedMovies.find(i => i.movieId  === movie.movieId)) {
       mainApi.saveMovie(movie, currentUser.id)
       .then((res) => {
-        getSavedMovies();
+        setAllSavedMovies([...allSavedMovies, res]);
+        setSavedMovies([...savedMovies, res])
       })
       .catch((err) => {
         console.log(err)
       });
     } else {
-      mainApi.getMovies()
-      .then((res) => {
-        const id = res.find(i => i.movieId  === movie.movieId )._id;
+        const id = allSavedMovies.find(i => i.movieId  === movie.movieId )._id;
         handleDeleteCard(id);
-      })
-      .catch((err) => {
-        console.log(err)
-      })
     }
   }
 
@@ -136,6 +129,7 @@ export default function Movies() {
         <MoviesCardList
           movies={movies}
           savedMovies={savedMovies}
+          allSavedMovies={allSavedMovies}
           isShortMovies={location.pathname === '/movies' ? isShortMovies : isShortSavedMovies}
           isLoading={isLoading}
           isNothingFinded={isNothingFinded}
@@ -146,5 +140,3 @@ export default function Movies() {
     </main>
     );
 };
-
-/*isSaved={props.savedMovies.some(i => i.movieId === movie.id)}*/

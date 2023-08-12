@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useResize } from '../../../hooks/useResize';
 import MoviesCard from '../MoviesCard/MoviesCard';
@@ -13,6 +13,10 @@ export default function MoviesCardList(props) {
   const firstCards = windowSize.isFourColumns ? 16 : windowSize.isThreeColumns ? 12 : windowSize.isTwoColumns ? 8 : 5;
   const moreCards = windowSize.isFourColumns ? 4 : windowSize.isThreeColumns ? 3 : 2;
   const [visibleCards, setVisibleCards] = useState(firstCards);
+
+  useEffect (() => {
+    setVisibleCards(firstCards)
+  }, [filmsArray]);
 
   function handleMore() {
     if(filmsArray.length > visibleCards) {
@@ -36,8 +40,8 @@ export default function MoviesCardList(props) {
       }
 
       <div className='movies-cardlist__cards'>
-      {!props.isLoading && filmsArray.slice(0, visibleCards).map((movie, _id) => (
-        <MoviesCard key={_id} movie={movie} onSave={props.onSave} onDelete={props.onDelete} savedMovies={props.savedMovies}/>
+      {!props.isLoading && filmsArray.slice(0, visibleCards).map((movie) => (
+        <MoviesCard key={movie.movieId} movie={movie} onSave={props.onSave} onDelete={props.onDelete} savedMovies={props.savedMovies} allSavedMovies={props.allSavedMovies}/>
       ))}
       </div>
       <div className='movies-cardlist__button-container'>

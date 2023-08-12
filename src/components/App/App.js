@@ -23,7 +23,8 @@ export default function App() {
   const [registerError, setRegisterError] = React.useState('');
   const [loginError, setLoginError] = React.useState('');
   const [updateError, setUpdateError] = React.useState('');
-  const [currentUser, setCurrentUser]= React.useState({});
+  const [updateMessage, setUpdateMessage] = React.useState('');
+  const [currentUser, setCurrentUser]= React.useState(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {});
   const [isPopupOpened, setIsPopupOpened] = React.useState(false);
   const navigate = useNavigate();
 
@@ -42,6 +43,7 @@ export default function App() {
     if (loggedIn) {
       mainApi.getCurrentUser()
       .then((res) => {
+        localStorage.setItem('user', JSON.stringify(res));
         setCurrentUser(res);
       })
       .catch((err) => {
@@ -49,7 +51,6 @@ export default function App() {
       });
     }
   }, [loggedIn]);
-
 
 
   function handleRegisterSubmit({name, email, password}) {
@@ -62,7 +63,7 @@ export default function App() {
       setRegisterError('При регистрации пользователя произошла ошибка');
     });
   }
-
+  
   function handleLogin({email, password}) {
     auth.authorize(email, password)
     .then((res) => {
@@ -88,6 +89,10 @@ export default function App() {
     .then((res) => {
       setCurrentUser(res);
       setUpdateError('');
+      setUpdateMessage('Данные успешно обновлены');
+      setTimeout(() => {
+        setUpdateMessage('');
+      }, 2000);
       func(false)
     })
     .catch((err) => {
@@ -145,7 +150,7 @@ export default function App() {
               element={<>
               <Header loggedIn={true} onNavBtn={openPopup} />
               <Popup isOpen={isPopupOpened} onClose={closePopup} />
-              <Profile onSave={handleUpdateUser} onLogout={handleLogout} error={updateError}/>
+              <Profile onSave={handleUpdateUser} onLogout={handleLogout} error={updateError} message={updateMessage}/>
             </>}/>
             </Route>
           <Route path='*'  element={<PageNotFound />} />

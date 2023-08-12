@@ -63,6 +63,7 @@
 
 .profile__buttons-box {
   display: flex;
+  position: relative;
   flex-direction: column;
   margin-top: 218px;
 }
@@ -87,6 +88,16 @@
   color: #FF004C;
   margin-bottom: 20px;
 }
+
+.profile__message {
+  position: absolute;
+  width: 100%;
+  font-size: 11px;
+  line-height: 13px;
+  color: #2BE080;
+  bottom: 60px;
+}
+
 
 .profile__save-button {
   background-color: #FF6838;

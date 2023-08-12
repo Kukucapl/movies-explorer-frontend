@@ -9,6 +9,7 @@ export default function Profile(props) {
   const [profileEdited, setProfileEdited] = React.useState(false);
   const [name, setName] = React.useState(currentUser.name);
   const [email, setEmail] = React.useState(currentUser.email);
+  const isOneOfInputChanged = name !== currentUser.name || email !== currentUser.email;
 
   function handleEditButton() {
     setProfileEdited(true)
@@ -16,12 +17,15 @@ export default function Profile(props) {
   
   function handleSubmit(e) {
     e.preventDefault();
-    props.onSave(name, email, setProfileEdited);
+    if(isOneOfInputChanged) {
+      props.onSave(name, email, setProfileEdited);
+    }
+
   }
 
   function handleNameChange(e) {
     setName(e.target.value);
-    form.handleChange(e)
+    form.handleChange(e);
   }
 
   function handleEmailChange(e) {
@@ -62,12 +66,13 @@ export default function Profile(props) {
         </div>
         <div className='profile__container'>
           <div className={`profile__buttons-box ${profileEdited ? 'profile__buttons-box_hide' : ''}`}>
+            <span className='profile__message'>{props.message}</span>
             <button className='profile__button button' onClick={handleEditButton} type='button'>Редактировать</button>
             <button className='profile__exit-button button' type='button' onClick={props.onLogout}>Выйти из аккаунта</button>
           </div>
           <div className={`profile__buttons-box ${!profileEdited ? 'profile__buttons-box_hide' : ''}`}>
             <span className='profile__error'>{props.error}</span>
-          <button className='profile__save-button button' type='submit' disabled={!form.isValid}>Сохранить</button>
+          <button className='profile__save-button button' type='submit' disabled={!form.isValid || !isOneOfInputChanged}>Сохранить</button>
           </div>
         </div>
       </form>
