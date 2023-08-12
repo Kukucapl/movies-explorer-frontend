@@ -105,7 +105,7 @@ export default function Movies() {
 
   function handleSaveCard(movie) {
     if(!allSavedMovies.find(i => i.movieId  === movie.movieId)) {
-      mainApi.saveMovie(movie, currentUser.id)
+      mainApi.saveMovie(movie, currentUser._id)
       .then((res) => {
         setAllSavedMovies([...allSavedMovies, res]);
         setSavedMovies([...savedMovies, res])
