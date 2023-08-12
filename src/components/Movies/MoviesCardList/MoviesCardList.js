@@ -40,7 +40,10 @@ export default function MoviesCardList(props) {
       }
 
       <div className='movies-cardlist__cards'>
-      {!props.isLoading && filmsArray.slice(0, visibleCards).map((movie) => (
+      {!props.isLoading && location.pathname === '/movies' && filmsArray.slice(0, visibleCards).map((movie) => (
+        <MoviesCard key={movie.movieId} movie={movie} onSave={props.onSave} onDelete={props.onDelete} savedMovies={props.savedMovies} allSavedMovies={props.allSavedMovies}/>
+      ))}
+      {!props.isLoading && location.pathname === '/saved-movies' && filmsArray.map((movie) => (
         <MoviesCard key={movie.movieId} movie={movie} onSave={props.onSave} onDelete={props.onDelete} savedMovies={props.savedMovies} allSavedMovies={props.allSavedMovies}/>
       ))}
       </div>
