@@ -1,16 +1,20 @@
 .search-form {
   padding: 82px 70px 0;
+
 }
 
 .search-form__form {
   border-bottom: 1px solid #E8E8E8;
   padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
 }
 
 .search-form__film {
   display: flex;
   align-items: center;
-  margin-bottom: 31px;
+  padding-bottom: 31px;
+  position: relative;
 }
 
 .search-form__input {
@@ -23,6 +27,19 @@
   line-height: 18px;
   padding: 13px 22px;
   margin-right: 10px;
+}
+
+.search-form__input:focus {
+  padding: 11px 21px;
+  border: 1px solid #FF6838;  
+}
+
+.search-form__error {
+  position: absolute;
+  left: 0;
+  top: 50px;
+  color: #EE3465;
+  font-size: 10px;
 }
 
 .search-form__button {
@@ -46,7 +63,7 @@
   }
 
   .search-form__film {
-    margin-bottom: 44px;
+    padding-bottom: 44px;
   }
 
   .search-form__input {

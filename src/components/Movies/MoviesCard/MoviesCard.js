@@ -3,28 +3,32 @@ import { useLocation } from 'react-router-dom';
 
 export default function MoviesCard(props) {
   const location = useLocation();
-  const [isSaved, setIsSaved] = React.useState(false);
-  const saveBtnClassName = (`movies-card__save button ${isSaved ? 'movies-card__save_active' : ''}`)
+  const saveBtnClassName = (`movies-card__save button ${props.allSavedMovies.find(i => i.movieId  === props.movie.movieId) ? 'movies-card__save_active' : ''}`)
+
+
+  function deleteCard() {
+    props.onDelete(props.movie._id);
+  }
+
 
   function handleCardSave() {
-    setIsSaved(!isSaved)
+    props.onSave(props.movie);;
   }
 
   return (
     <article className="movies-card">
-      <img className="movies-card__cover" src={props.image} alt="Обложка"/>
+      <a className='movies-card__trailerLink' href={props.movie.trailerLink} rel='noreferrer' target='_blank'><img className="movies-card__cover" src={props.movie.image} alt="Обложка"/></a>
       <div className="movies-card__first-row">
-        <h2 className="movies-card__name">{props.nameRU}</h2>
+        <h2 className="movies-card__name">{props.movie.nameRU}</h2>
         {location.pathname === '/movies' && 
           <button className={saveBtnClassName} onClick={handleCardSave}/>
         }
 
         {location.pathname === '/saved-movies' && 
-          <button className="movies-card__delete button"/>
+          <button className="movies-card__delete button" onClick={deleteCard}/>
         }
       </div>
-      <p className="movies-card__duration">{props.duration}</p>
+      <p className="movies-card__duration">{Math.floor(props.movie.duration / 60)}ч{props.movie.duration % 60}м</p>
     </article>
   );
 };
-
