@@ -1,23 +1,3 @@
-# Дипломная работа "Movies explorer". Frontend
-
-## Описание:
-Приложение для поиска фильмов. Присутствует регистрация, авторизация, есть возможность редактировать профиль, добавлять фильмы в закладки и удалять их оттуда. Главная страница рассказывает о работе над проектом и используемых в нем технологиях. Поля ввода валидируются
-
-## Верстка:
-Верстка `адаптивная`, для выравнивания компонентов использованы `flexbox` и `grid`
-
-Приложение на `React`, в нем шесть`роутов`: страница знакомства с проектом, регистрация, авторизация и защищенные авторизацией профиль, фильмы, сохраненные фильмы. Взаимодействует с сервером через `API` запросы. Хранит `token` в `localStorage`
-
-## Для локального запуска
-Клонируйте репозиторий `git clone https://github.com/Kukucapl/movies-explorer-frontend.git`
-В дериктории movies-explorer-frontend установите необходимые пакеты `npm install`
-Запустите [бэк](https://github.com/Kukucapl/movies-explorer-api/tree/main)
-И фронт `npm run start`
-Поделано!
-
-## Планируемые улучшения
-Закрытие по оверлею, уточнение ошибок при регистрации и авторицации, валидация
-
-
 Макет https://disk.yandex.ru/d/tONxNEZTAgDZ7w
-[Backend](https://github.com/Kukucapl/movies-explorer-api/tree/main)
+Пул реквест: https://github.com/Kukucapl/movies-explorer-frontend/pull/2
+Проект https://diplom.kukucapl.nomoredomains.work/

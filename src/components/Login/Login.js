@@ -1,13 +1,15 @@
 import Logo from '../Logo/Logo';
 import AuthForm from '../AuthForm/AuthForm';
 
-export default function Login() {
+export default function Login(props) {
   return (
-    <section className='login'>
+    <main className='login'>
       <div className='login__logo-container'>
         <Logo />
       </div>
-      <AuthForm 
+      <AuthForm
+      onSubmit={props.onLogin}
+      error={props.error}
       title={'Рады видеть!'} 
       inputName={false} 
       buttonText={'Войти'}
@@ -15,7 +17,7 @@ export default function Login() {
       link={'/signup'}
       linkText={'Регистрация'}
       />
-    </section>
+    </main>
     
   );
 };

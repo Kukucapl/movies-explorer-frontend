@@ -1,34 +1,57 @@
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import MoviesCard from "../MoviesCard/MoviesCard";
-import { films, savedFilms } from "../../../utils/constants";
+import { useResize } from '../../../hooks/useResize';
+import MoviesCard from '../MoviesCard/MoviesCard';
+import Preloader from '../Preloader/Preloader'
 
-export default function MoviesCardList() {
+export default function MoviesCardList(props) {
   const location = useLocation();
-  const filmsArray = location.pathname === '/movies' ? films : savedFilms;
-  function getMaxFilms(arr) {
-    if(window.innerWidth > 1200) {
-      return arr.slice(0, 16);
-    } else if (window.innerWidth <= 1200 && window.innerWidth >= 910) {
-      return arr.slice(0, 12);
-    } else if (window.innerWidth <= 909 && window.innerWidth >= 770) {
-      return arr.slice(0, 8);
-    } else {
-      return arr.slice(0, 5);}
-  }
+  const windowSize = useResize();
+  const movies = props.isShortMovies ? props.movies.filter(i => i.duration <= 40) : props.movies;
+  const savedMovies = props.isShortMovies ?  props.savedMovies.filter(i => i.duration <= 40) : props.savedMovies;
+  const filmsArray = location.pathname === '/movies' ? movies : savedMovies;
+  const firstCards = windowSize.isFourColumns ? 16 : windowSize.isThreeColumns ? 12 : windowSize.isTwoColumns ? 8 : 5;
+  const moreCards = windowSize.isFourColumns ? 4 : windowSize.isThreeColumns ? 3 : 2;
+  const [visibleCards, setVisibleCards] = useState(firstCards);
 
+  useEffect (() => {
+    setVisibleCards(firstCards)
+  }, [filmsArray]);
+
+  function handleMore() {
+    if(filmsArray.length > visibleCards) {
+      const extraCards = windowSize.isOneColumn ? 0 : visibleCards % moreCards !== 0 ? moreCards - visibleCards % moreCards : 0;
+      setVisibleCards(visibleCards + moreCards + extraCards)
+    } 
+  }
+  
   return (
-    <section className="movies-cardlist">
-      <div className="movies-cardlist__cards">
-      {getMaxFilms(filmsArray).map((movie, id) => (
-        <MoviesCard key={id} {...movie} />
+    <section className='movies-cardlist'>
+      {props.isLoading &&
+          <Preloader />
+      }
+
+      {!props.isLoading && props.isNothingFinded &&
+          <h2 className='movies-cardlist__message'>Ничего не найдено</h2>
+      }
+
+      {!props.isLoading && props.isSearchError &&
+          <h2 className='movies-cardlist__message movies-cardlist__message_error'>Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</h2>
+      }
+
+      <div className='movies-cardlist__cards'>
+      {!props.isLoading && location.pathname === '/movies' && filmsArray.slice(0, visibleCards).map((movie) => (
+        <MoviesCard key={movie.movieId} movie={movie} onSave={props.onSave} onDelete={props.onDelete} savedMovies={props.savedMovies} allSavedMovies={props.allSavedMovies}/>
+      ))}
+      {!props.isLoading && location.pathname === '/saved-movies' && filmsArray.map((movie) => (
+        <MoviesCard key={movie.movieId} movie={movie} onSave={props.onSave} onDelete={props.onDelete} savedMovies={props.savedMovies} allSavedMovies={props.allSavedMovies}/>
       ))}
       </div>
-      <div className="movies-cardlist__button-container">
-        {location.pathname === '/movies' &&
-          <button className="movies-cardlist__button button">Ещё</button>
+      <div className='movies-cardlist__button-container'>
+        {location.pathname === '/movies' && filmsArray.length > visibleCards &&
+          <button className='movies-cardlist__button button' onClick={handleMore}>Ещё</button>
         }  
       </div>
-
     </section>
     
   );

@@ -25,11 +25,12 @@
   text-align: start;
   white-space: nowrap;
   padding-bottom: 14px;
+  position: relative;
 }
 
 .profile__input-label:last-of-type {
   border-bottom: none;
-  padding: 18px 0 0;
+  padding-top: 18px;
 }
 
 .profile__input {
@@ -37,6 +38,10 @@
   border: none;
   text-align: end;
   margin-left: 5px;
+}
+
+.profile__input_error {
+  color: #EE3465;
 }
 
 .profile__input:focus {
@@ -48,8 +53,17 @@
   color: black;
 }
 
+.profile__input-error {
+  color: #EE3465;
+  font-size: 10px;
+  position: absolute;
+  bottom: 2px;
+  right: 0px;
+}
+
 .profile__buttons-box {
   display: flex;
+  position: relative;
   flex-direction: column;
   margin-top: 218px;
 }
@@ -68,12 +82,22 @@
   color: #EE3465;
 }
 
-.profile__input-error {
+.profile__error {
   font-size: 11px;
   line-height: 13px;
   color: #FF004C;
   margin-bottom: 20px;
 }
+
+.profile__message {
+  position: absolute;
+  width: 100%;
+  font-size: 11px;
+  line-height: 13px;
+  color: #2BE080;
+  bottom: 60px;
+}
+
 
 .profile__save-button {
   background-color: #FF6838;
